@@ -1,0 +1,2 @@
+﻿insert into product(id, code, name, description, amount, currency) 
+  values ('1', 'B0010001', 'SpringBoot', 'Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications.', 64, 'CNY');
