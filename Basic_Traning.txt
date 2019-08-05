@@ -1,0 +1,54 @@
+﻿day1:
+goal
+    1. Quickly build SpringBoot project
+    2. Configure database connections and complete CRUD operations
+    3. Write test cases, coverage > 80%
+    
+Build SpringBoot project
+    with Spring Initializr website: https://start.spring.io/
+        dependencies: Spring Web Starter, Spring Data JPA, MySQL Driver, Lombok
+    with IDE(eclipse, IDEA)
+        pom: https://docs.spring.io/spring-boot/docs/2.2.0.M4/reference/html/#getting-started-maven-installation
+    
+Setup code coverage detection plugin: https://www.eclemma.org/jacoco/trunk/doc/maven.html
+    Use the jacoco maven plugin: 
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+    Set the detection range:
+        <configuration>
+            <excludes>
+                <exclude>com/chinasoft/demo/DemoApplication.class</exclude>
+                <exclude>com/chinasoft/demo/entity/*</exclude>
+            </excludes>
+        </configuration>
+    
+Primary key setting
+    Use UUID to generator id
+        @Id
+        @GenericGenerator(name = "jpa-uuid", strategy = "uuid2")
+        @GeneratedValue(generator = "jpa-uuid")
+        private String id;
+    reference: org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory
+        // Code excerpt
+        public DefaultIdentifierGeneratorFactory() {
+            register( "uuid2", UUIDGenerator.class );
+            register( "guid", GUIDGenerator.class );			// can be done with UUIDGenerator + strategy
+            register( "uuid", UUIDHexGenerator.class );			// "deprecated" for new use
+            register( "uuid.hex", UUIDHexGenerator.class ); 	// uuid.hex is deprecated
+            register( "assigned", Assigned.class );
+            register( "identity", IdentityGenerator.class );
+            register( "select", SelectGenerator.class );
+            register( "sequence", SequenceStyleGenerator.class );
+            register( "seqhilo", SequenceHiLoGenerator.class );
+            register( "increment", IncrementGenerator.class );
+            register( "foreign", ForeignGenerator.class );
+            register( "sequence-identity", SequenceIdentityGenerator.class );
+            register( "enhanced-sequence", SequenceStyleGenerator.class );
+            register( "enhanced-table", TableGenerator.class );
+        }
+    Primary key generation strategy: https://my.oschina.net/zhaoqian/blog/212293
+    
+Spring Data JPA
+    https://stackoverflow.com/questions/14014086/what-is-difference-between-crudrepository-and-jparepository-interfaces-in-spring
+    https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation
+    https://docs.spring.io/spring-boot/docs/current/reference/html/howto-data-access.html
